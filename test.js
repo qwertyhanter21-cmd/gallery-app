@@ -1,6 +1,8 @@
-const logger = require("./logger");
+const GalleryController = require("./controllers/GalleryController");
 
-logger.info("Application started");
-logger.warn("Low memory warning");
-logger.error("Failed to load image", { file: "photo.jpg" });
-logger.fatal("Unexpected crash", { code: 500 });
+const gallery = new GalleryController();
+
+gallery.addImage("photo1.jpg", "My first photo");
+gallery.addImage("photo2.jpg", "Another picture");
+
+console.log(gallery.listImages());
