@@ -1,22 +1,18 @@
 const express = require("express");
-const GalleryController = require("../../controllers/GalleryController");
+const container = require("../../container/container");
 
 const router = express.Router();
-const gallery = new GalleryController();
+const galleryService = container.resolve("galleryService");
 
-// Ендпоінт для додавання зображення
+// Додавання зображення
 router.post("/add", (req, res) => {
-    // Додаю зображення через бізнес-логіку
-    const img = gallery.addImage(req.body.filename, req.body.title);
-
-    // Повертаю результат клієнту
+    const img = galleryService.addImage(req.body.filename, req.body.title);
     res.json(img);
 });
 
-// Ендпоінт для отримання всіх зображень
+// Отримання списку
 router.get("/list", (req, res) => {
-    // Повертаю список усіх зображень
-    res.json(gallery.listImages());
+    res.json(galleryService.listImages());
 });
 
 module.exports = router;

@@ -14,5 +14,9 @@
     "eslint": "^8.57.1",
     "eslint-plugin-react": "^7.37.5",
     "globals": "^17.6.0"
+  },
+  "dependencies": {
+    "awilix": "^13.0.3",
+    "express": "^5.2.1"
   }
 }

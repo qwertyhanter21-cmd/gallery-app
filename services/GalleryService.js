@@ -1,23 +1,16 @@
-const Image = require("../models/Image");
-const logger = require("../logger");
-
 class GalleryService {
     constructor() {
         this.images = [];
+        this.id = 1;
     }
 
     addImage(filename, title) {
-        const id = this.images.length + 1;
-        const image = new Image(id, filename, title);
-
-        this.images.push(image);
-        logger.info("Image added", { id, filename });
-
-        return image;
+        const img = { id: this.id++, filename, title };
+        this.images.push(img);
+        return img;
     }
 
-    getAllImages() {
-        logger.info("Images requested", { count: this.images.length });
+    listImages() {
         return this.images;
     }
 }
