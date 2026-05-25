@@ -1,25 +1,35 @@
+// Основні залежності
 const express = require("express");
+const path = require("path");
+
+// Підключаю middleware
 const loggerMiddleware = require("./middleware/loggerMiddleware");
 const headersMiddleware = require("./middleware/headersMiddleware");
 const errorMiddleware = require("./middleware/errorMiddleware");
+
+// Підключаю маршрути
 const galleryRoutes = require("./controllers/GalleryWebController");
 
+// Створюю застосунок
 const app = express();
 
-// Вбудований middleware для роботи з JSON
+// Дозволяю читати JSON у запитах
 app.use(express.json());
 
-// Мої middleware
-app.use(loggerMiddleware);      // Логування кожного запиту
-app.use(headersMiddleware);     // Перевірка заголовків
+// Логування запитів
+app.use(loggerMiddleware);
 
-// Основні маршрути
+// Перевірка заголовків
+app.use(headersMiddleware);
+
+// Підключення маршрутів галереї
 app.use("/gallery", galleryRoutes);
 
-// Глобальний обробник помилок (має бути останнім)
+// Обробка помилок
 app.use(errorMiddleware);
 
 // Запуск сервера
-app.listen(3000, () => {
-    console.log("Сервер запущено на порту 3000");
+const PORT = 3000;
+app.listen(PORT, () => {
+    console.log(`Сервер запущено на порту ${PORT}`);
 });

@@ -1,17 +1,20 @@
+// Сервіс галереї — бізнес-логіка
+// Отримує репозиторій через DI-контейнер
+
 class GalleryService {
-    constructor() {
-        this.images = [];
-        this.id = 1;
+    constructor({ galleryRepository }) {
+        // Репозиторій, який працює з JSON-базою
+        this.galleryRepository = galleryRepository;
     }
 
+    // Додати зображення
     addImage(filename, title) {
-        const img = { id: this.id++, filename, title };
-        this.images.push(img);
-        return img;
+        return this.galleryRepository.add(filename, title);
     }
 
+    // Отримати всі зображення
     listImages() {
-        return this.images;
+        return this.galleryRepository.getAll();
     }
 }
 
